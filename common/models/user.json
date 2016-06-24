@@ -8,7 +8,13 @@
   },
   "properties": {},
   "validations": [],
-  "relations": {},
+  "relations": {
+    "fleetKey": {
+      "type": "hasMany",
+      "model": "fleetKey",
+      "foreignKey": "ownerId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

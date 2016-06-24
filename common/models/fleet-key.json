@@ -1,0 +1,27 @@
+{
+  "name": "fleetKey",
+  "plural": "fleetKeys",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "key": {
+      "type": "string",
+      "id": false,
+      "required": true,
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "ownerId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
