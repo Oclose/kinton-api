@@ -24,7 +24,11 @@
     "strict": true
   },
   "user": {
-    "dataSource": "db",
+    "dataSource": "oclose-mongo",
+    "public": true
+  },
+  "fleetKey": {
+    "dataSource": "oclose-mongo",
     "public": true
   }
 }
