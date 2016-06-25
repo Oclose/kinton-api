@@ -1,12 +1,10 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
+
 const uuid = require('node-uuid');
 const crypto = require('crypto');
 
-const app = require('../../server/server');
-
 module.exports = (User) => {
-  User.prototype.generateFleetKey = (cb) => {
-    const FleetKey = app.models.FleetKey;
+  User.prototype.generateFleetKey = function generateFleetKey(cb) {
     let key = uuid();
 
     key = crypto.createHash('sha256')
@@ -14,9 +12,8 @@ module.exports = (User) => {
       .update('kinton')
       .digest('hex');
 
-    FleetKey.create({
+    this.fleetKey.create({
       key,
-      ownerId: this.id,
     }, (err, fleetKey) => {
       if (err) {
         return cb(err);
