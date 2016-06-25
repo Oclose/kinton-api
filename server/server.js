@@ -1,7 +1,13 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var explorer = require('loopback-component-explorer');
 
 var app = module.exports = loopback();
+
+// Alternatively, register as a middleware:
+app.use('/explorer', explorer.routes(app, {
+  basePath: '/api'
+}));
 
 app.start = function() {
   // start the web server
@@ -9,10 +15,6 @@ app.start = function() {
     app.emit('started');
     var baseUrl = app.get('url').replace(/\/$/, '');
     console.log('Web server listening at: %s', baseUrl);
-    if (app.get('loopback-component-explorer')) {
-      var explorerPath = app.get('loopback-component-explorer').mountPath;
-      console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
-    }
   });
 };
 
