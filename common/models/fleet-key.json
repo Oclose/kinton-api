@@ -9,7 +9,7 @@
   "properties": {
     "key": {
       "type": "string",
-      "id": false,
+      "id": true,
       "required": true,
       "index": true
     }
