@@ -75,16 +75,16 @@ paths:
           schema:
             $ref: '#/definitions/AccessToken'
       deprecated: false
-  '/users/{id}/fleetKey/{fk}':
+  '/users/{id}/fleet/{fk}':
     get:
       tags:
         - user
-      summary: Find a related item by id for fleetKey.
-      operationId: user.prototype.__findById__fleetKey
+      summary: Find a related item by id for fleet.
+      operationId: user.prototype.__findById__fleet
       parameters:
         - name: fk
           in: path
-          description: Foreign key for fleetKey
+          description: Foreign key for fleet
           required: true
           type: string
           format: JSON
@@ -98,17 +98,17 @@ paths:
         '200':
           description: Request was successful
           schema:
-            $ref: '#/definitions/fleetKey'
+            $ref: '#/definitions/fleet'
       deprecated: false
     delete:
       tags:
         - user
-      summary: Delete a related item by id for fleetKey.
-      operationId: user.prototype.__destroyById__fleetKey
+      summary: Delete a related item by id for fleet.
+      operationId: user.prototype.__destroyById__fleet
       parameters:
         - name: fk
           in: path
-          description: Foreign key for fleetKey
+          description: Foreign key for fleet
           required: true
           type: string
           format: JSON
@@ -125,12 +125,12 @@ paths:
     put:
       tags:
         - user
-      summary: Update a related item by id for fleetKey.
-      operationId: user.prototype.__updateById__fleetKey
+      summary: Update a related item by id for fleet.
+      operationId: user.prototype.__updateById__fleet
       parameters:
         - name: fk
           in: path
-          description: Foreign key for fleetKey
+          description: Foreign key for fleet
           required: true
           type: string
           format: JSON
@@ -138,7 +138,7 @@ paths:
           in: body
           required: false
           schema:
-            $ref: '#/definitions/fleetKey'
+            $ref: '#/definitions/fleet'
         - name: id
           in: path
           description: User id
@@ -149,83 +149,7 @@ paths:
         '200':
           description: Request was successful
           schema:
-            $ref: '#/definitions/fleetKey'
-      deprecated: false
-  '/users/{id}/mote/{fk}':
-    get:
-      tags:
-        - user
-      summary: Find a related item by id for mote.
-      operationId: user.prototype.__findById__mote
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for mote
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: User id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/mote'
-      deprecated: false
-    delete:
-      tags:
-        - user
-      summary: Delete a related item by id for mote.
-      operationId: user.prototype.__destroyById__mote
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for mote
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: User id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - user
-      summary: Update a related item by id for mote.
-      operationId: user.prototype.__updateById__mote
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for mote
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/mote'
-        - name: id
-          in: path
-          description: User id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/mote'
+            $ref: '#/definitions/fleet'
       deprecated: false
   '/users/{id}/accessTokens':
     get:
@@ -321,12 +245,12 @@ paths:
                 type: number
                 format: double
       deprecated: false
-  '/users/{id}/fleetKey':
+  '/users/{id}/fleet':
     get:
       tags:
         - user
-      summary: Queries fleetKey of user.
-      operationId: user.prototype.__get__fleetKey
+      summary: Queries fleet of user.
+      operationId: user.prototype.__get__fleet
       parameters:
         - name: filter
           in: query
@@ -345,19 +269,19 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/fleetKey'
+              $ref: '#/definitions/fleet'
       deprecated: false
     post:
       tags:
         - user
-      summary: Creates a new instance in fleetKey of this model.
-      operationId: user.prototype.__create__fleetKey
+      summary: Creates a new instance in fleet of this model.
+      operationId: user.prototype.__create__fleet
       parameters:
         - name: data
           in: body
           required: false
           schema:
-            $ref: '#/definitions/fleetKey'
+            $ref: '#/definitions/fleet'
         - name: id
           in: path
           description: User id
@@ -368,13 +292,13 @@ paths:
         '200':
           description: Request was successful
           schema:
-            $ref: '#/definitions/fleetKey'
+            $ref: '#/definitions/fleet'
       deprecated: false
     delete:
       tags:
         - user
-      summary: Deletes all fleetKey of this model.
-      operationId: user.prototype.__delete__fleetKey
+      summary: Deletes all fleet of this model.
+      operationId: user.prototype.__delete__fleet
       parameters:
         - name: id
           in: path
@@ -386,106 +310,12 @@ paths:
         '204':
           description: Request was successful
       deprecated: false
-  '/users/{id}/fleetKey/count':
+  '/users/{id}/fleet/count':
     get:
       tags:
         - user
-      summary: Counts fleetKey of user.
-      operationId: user.prototype.__count__fleetKey
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: User id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/users/{id}/mote':
-    get:
-      tags:
-        - user
-      summary: Queries mote of user.
-      operationId: user.prototype.__get__mote
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: User id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/mote'
-      deprecated: false
-    post:
-      tags:
-        - user
-      summary: Creates a new instance in mote of this model.
-      operationId: user.prototype.__create__mote
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/mote'
-        - name: id
-          in: path
-          description: User id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/mote'
-      deprecated: false
-    delete:
-      tags:
-        - user
-      summary: Deletes all mote of this model.
-      operationId: user.prototype.__delete__mote
-      parameters:
-        - name: id
-          in: path
-          description: User id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/users/{id}/mote/count':
-    get:
-      tags:
-        - user
-      summary: Counts mote of user.
-      operationId: user.prototype.__count__mote
+      summary: Counts fleet of user.
+      operationId: user.prototype.__count__fleet
       parameters:
         - name: where
           in: query
@@ -866,16 +696,163 @@ paths:
         '204':
           description: Request was successful
       deprecated: false
-  '/users/{id}/generateFleetKey':
+  '/fleets/{id}/mote/{fk}':
     get:
       tags:
-        - user
-      summary: Generate a new Fleet Key for the user.
-      operationId: user.prototype.generateFleetKey
+        - fleet
+      summary: Find a related item by id for mote.
+      operationId: fleet.prototype.__findById__mote
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for mote
+          required: true
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: PersistedModel id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/mote'
+      deprecated: false
+    delete:
+      tags:
+        - fleet
+      summary: Delete a related item by id for mote.
+      operationId: fleet.prototype.__destroyById__mote
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for mote
+          required: true
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: PersistedModel id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+    put:
+      tags:
+        - fleet
+      summary: Update a related item by id for mote.
+      operationId: fleet.prototype.__updateById__mote
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for mote
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/mote'
+        - name: id
+          in: path
+          description: PersistedModel id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/mote'
+      deprecated: false
+  '/fleets/{id}/mote':
+    get:
+      tags:
+        - fleet
+      summary: Queries mote of fleet.
+      operationId: fleet.prototype.__get__mote
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: PersistedModel id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/mote'
+      deprecated: false
+    post:
+      tags:
+        - fleet
+      summary: Creates a new instance in mote of this model.
+      operationId: fleet.prototype.__create__mote
+      parameters:
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/mote'
+        - name: id
+          in: path
+          description: PersistedModel id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/mote'
+      deprecated: false
+    delete:
+      tags:
+        - fleet
+      summary: Deletes all mote of this model.
+      operationId: fleet.prototype.__delete__mote
       parameters:
         - name: id
           in: path
-          description: User id
+          description: PersistedModel id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/fleets/{id}/mote/count':
+    get:
+      tags:
+        - fleet
+      summary: Counts mote of fleet.
+      operationId: fleet.prototype.__count__mote
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: PersistedModel id
           required: true
           type: string
           format: JSON
@@ -885,15 +862,16 @@ paths:
           schema:
             type: object
             properties:
-              key:
-                type: string
+              count:
+                type: number
+                format: double
       deprecated: false
-  '/motes/{id}/user':
+  '/motes/{id}/fleet':
     get:
       tags:
         - mote
-      summary: Fetches belongsTo relation user.
-      operationId: mote.prototype.__get__user
+      summary: Fetches belongsTo relation fleet.
+      operationId: mote.prototype.__get__fleet
       parameters:
         - name: refresh
           in: query
@@ -909,29 +887,7 @@ paths:
         '200':
           description: Request was successful
           schema:
-            $ref: '#/definitions/user'
-      deprecated: false
-  /motes/register:
-    post:
-      tags:
-        - mote
-      summary: Obtains an uuid and secret.
-      operationId: mote.register
-      parameters:
-        - name: fleetKey
-          in: formData
-          required: false
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              uuid:
-                type: string
-              secret:
-                type: string
+            $ref: '#/definitions/fleet'
       deprecated: false
 definitions:
   x-any:
@@ -953,19 +909,9 @@ definitions:
     required:
       - id
     additionalProperties: false
-  fleetKey:
-    properties:
-      key:
-        type: string
-      ownerId:
-        $ref: '#/definitions/ObjectID'
-    required:
-      - key
-    additionalProperties: false
-  mote:
+  fleet:
     properties:
       uuid:
-        description: UUID of the device
         type: string
       ownerId:
         $ref: '#/definitions/ObjectID'
@@ -998,6 +944,20 @@ definitions:
         $ref: '#/definitions/ObjectID'
     required:
       - email
+    additionalProperties: false
+  mote:
+    properties:
+      secret:
+        description: secret of the device
+        type: string
+      uuid:
+        description: UUID of the device
+        type: string
+      fleetId:
+        type: string
+    required:
+      - secret
+      - uuid
     additionalProperties: false
   ObjectID:
     type: string
