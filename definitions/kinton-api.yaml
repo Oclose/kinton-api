@@ -696,160 +696,17 @@ paths:
         '204':
           description: Request was successful
       deprecated: false
-  '/fleets/{id}/mote/{fk}':
-    get:
-      tags:
-        - fleet
-      summary: Find a related item by id for mote.
-      operationId: fleet.prototype.__findById__mote
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for mote
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: PersistedModel id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/mote'
-      deprecated: false
-    delete:
-      tags:
-        - fleet
-      summary: Delete a related item by id for mote.
-      operationId: fleet.prototype.__destroyById__mote
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for mote
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: PersistedModel id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - fleet
-      summary: Update a related item by id for mote.
-      operationId: fleet.prototype.__updateById__mote
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for mote
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/mote'
-        - name: id
-          in: path
-          description: PersistedModel id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/mote'
-      deprecated: false
-  '/fleets/{id}/mote':
-    get:
-      tags:
-        - fleet
-      summary: Queries mote of fleet.
-      operationId: fleet.prototype.__get__mote
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: PersistedModel id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/mote'
-      deprecated: false
+  '/fleets/{id}/registerMote':
     post:
       tags:
         - fleet
-      summary: Creates a new instance in mote of this model.
-      operationId: fleet.prototype.__create__mote
+      summary: Register a new mote.
+      operationId: fleet.prototype.registerMote
       parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/mote'
-        - name: id
-          in: path
-          description: PersistedModel id
+        - name: fleetKey
+          in: formData
           required: true
           type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/mote'
-      deprecated: false
-    delete:
-      tags:
-        - fleet
-      summary: Deletes all mote of this model.
-      operationId: fleet.prototype.__delete__mote
-      parameters:
-        - name: id
-          in: path
-          description: PersistedModel id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/fleets/{id}/mote/count':
-    get:
-      tags:
-        - fleet
-      summary: Counts mote of fleet.
-      operationId: fleet.prototype.__count__mote
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
         - name: id
           in: path
           description: PersistedModel id
@@ -862,32 +719,10 @@ paths:
           schema:
             type: object
             properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/motes/{id}/fleet':
-    get:
-      tags:
-        - mote
-      summary: Fetches belongsTo relation fleet.
-      operationId: mote.prototype.__get__fleet
-      parameters:
-        - name: refresh
-          in: query
-          required: false
-          type: boolean
-        - name: id
-          in: path
-          description: PersistedModel id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/fleet'
+              uuid:
+                type: string
+              secret:
+                type: string
       deprecated: false
 definitions:
   x-any:
@@ -945,20 +780,6 @@ definitions:
     required:
       - email
     additionalProperties: false
-  mote:
-    properties:
-      secret:
-        description: secret of the device
-        type: string
-      uuid:
-        description: UUID of the device
-        type: string
-      fleetId:
-        type: string
-    required:
-      - secret
-      - uuid
-    additionalProperties: false
   ObjectID:
     type: string
     pattern: "^[a-fA-F\\d]{24}$"
@@ -975,21 +796,10 @@ consumes:
   - application/json
 produces:
   - application/json
-securityDefinitions:
-  clientIdHeader:
-    type: apiKey
-    in: header
-    name: X-IBM-Client-Id
-  clientSecretHeader:
-    in: header
-    name: X-IBM-Client-Secret
-    type: apiKey
-security:
-  - clientIdHeader: []
-    clientSecretHeader: []
+securityDefinitions: {}
 x-ibm-configuration:
   testable: true
-  enforced: true
+  enforced: false
   cors:
     enabled: true
   catalogs:
@@ -1003,3 +813,9 @@ x-ibm-configuration:
     execute:
       - invoke:
           target-url: $(runtime-url)$(request.path)$(request.search)
+parameters:
+  Authorization:
+    name: Authorization
+    type: string
+    required: false
+    in: header
