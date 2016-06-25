@@ -1,0 +1,28 @@
+{
+  "name": "mote",
+  "plural": "motes",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "UUID of the device"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "ownerId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
