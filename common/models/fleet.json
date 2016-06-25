@@ -10,8 +10,6 @@
     "uuid": {
       "type": "string",
       "id": true,
-      "generated": false,
-      "required": true,
       "index": true
     }
   },
