@@ -7,9 +7,15 @@
     "validateUpsert": true
   },
   "properties": {
+    "secret": {
+      "type": "string",
+      "required": true,
+      "description": "secret of the device"
+    },
     "uuid": {
       "type": "string",
       "id": true,
+      "generated": false,
       "required": true,
       "index": true,
       "description": "UUID of the device"
@@ -17,10 +23,10 @@
   },
   "validations": [],
   "relations": {
-    "user": {
+    "fleet": {
       "type": "belongsTo",
-      "model": "user",
-      "foreignKey": "ownerId"
+      "model": "fleet",
+      "foreignKey": "fleetId"
     }
   },
   "acls": [],

@@ -9,14 +9,9 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "fleetKey": {
+    "fleet": {
       "type": "hasMany",
-      "model": "fleetKey",
-      "foreignKey": "ownerId"
-    },
-    "mote": {
-      "type": "hasMany",
-      "model": "mote",
+      "model": "fleet",
       "foreignKey": "ownerId"
     }
   },

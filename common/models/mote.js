@@ -3,7 +3,7 @@
 const uuid = require('node-uuid');
 const crypto = require('crypto');
 
-const app = require('../../server/server');
+// const app = require('../../server/server');
 
 module.exports = (Mote) => {
   Mote.disableRemoteMethod('create', true);
@@ -28,62 +28,20 @@ module.exports = (Mote) => {
 
   Mote.disableRemoteMethod('__get__user', false);
 
-  Mote.register = (key, cb) => {
-    const FleetKey = app.models.fleetKey;
-    const User = app.models.user;
+  Mote.observe('before save', (ctx, next) => {
+    if (ctx.instance && ctx.isNewInstance) {
+      const moteUuid = uuid.v4();
+      const moteSecret =
+        crypto
+        .createHash('sha256')
+        .update(uuid.v4())
+        .update('pepitogrillo')
+        .digest('hex');
 
-    const moteUuid = uuid.v4();
-    const moteSecret =
-      crypto
-      .createHash('sha256')
-      .update(uuid.v4())
-      .update('pepitogrillo')
-      .digest('hex');
-
-    FleetKey.findById(key, (findErr, fleetKey) => {
-      if (findErr) {
-        cb(findErr);
-        return;
-      }
-
-      User.findById(fleetKey.ownerId, (findUserErr, user) => {
-        if (findUserErr) {
-          cb(findUserErr);
-          return;
-        }
-
-        user.mote.create({
-          uuid: moteUuid,
-          secret: moteSecret,
-        }, (createErr) => {
-          if (createErr) {
-            cb(createErr);
-            return;
-          }
-
-          cb(null, moteUuid, moteSecret);
-        });
-      });
-    });
-  };
-
-  Mote.remoteMethod(
-    'register', {
-      accepts: {
-        arg: 'fleetKey',
-        type: 'string',
-        required: true,
-      },
-      returns: [{
-        arg: 'uuid',
-        type: 'string',
-      }, {
-        arg: 'secret',
-        type: 'string',
-      }],
-      description: [
-        'Obtains an uuid and secret.',
-      ],
+      ctx.instance.uuid = moteUuid;
+      ctx.instance.secret = moteSecret;
     }
-  );
+
+    next();
+  });
 };
