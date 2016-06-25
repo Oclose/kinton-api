@@ -1,10 +1,5 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-const uuid = require('node-uuid');
-const crypto = require('crypto');
-
-// const app = require('../../server/server');
-
 module.exports = (Mote) => {
   Mote.disableRemoteMethod('create', true);
   Mote.disableRemoteMethod('upsert', true);
@@ -27,21 +22,4 @@ module.exports = (Mote) => {
   Mote.disableRemoteMethod('createChangeStream', true);
 
   Mote.disableRemoteMethod('__get__fleet', false);
-
-  Mote.observe('before save', (ctx, next) => {
-    if (ctx.instance && ctx.isNewInstance) {
-      const moteUuid = uuid.v4();
-      const moteSecret =
-        crypto
-        .createHash('sha256')
-        .update(uuid.v4())
-        .update('pepitogrillo')
-        .digest('hex');
-
-      ctx.instance.uuid = moteUuid;
-      ctx.instance.secret = moteSecret;
-    }
-
-    next();
-  });
 };
