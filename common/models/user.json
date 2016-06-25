@@ -13,6 +13,11 @@
       "type": "hasMany",
       "model": "fleetKey",
       "foreignKey": "ownerId"
+    },
+    "mote": {
+      "type": "hasMany",
+      "model": "mote",
+      "foreignKey": "ownerId"
     }
   },
   "acls": [],
