@@ -45,8 +45,8 @@ module.exports = (Fleet) => {
     next();
   });
 
-  Fleet.registerMote = function registerMote(cb) {
-    Fleet.findById(this.key, (findErr, fleet) => {
+  Fleet.prototype.registerMote = function registerMote(cb) {
+    Fleet.findById(this.uuid, (findErr, fleet) => {
       if (findErr) {
         cb(findErr);
         return;
@@ -78,11 +78,7 @@ module.exports = (Fleet) => {
 
   Fleet.remoteMethod(
     'registerMote', {
-      accepts: [{
-        arg: 'fleetKey',
-        type: 'string',
-        required: true,
-      }],
+      accepts: [],
       returns: [{
         arg: 'uuid',
         type: 'string',
