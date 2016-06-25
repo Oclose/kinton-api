@@ -15,6 +15,16 @@
       "foreignKey": "ownerId"
     }
   },
-  "acls": [],
+  "acls": [{
+    "principalType": "ROLE",
+    "principalId": "$owner",
+    "permission": "ALLOW",
+    "property": "__get__fleet"
+  }, {
+    "principalType": "ROLE",
+    "principalId": "$owner",
+    "permission": "ALLOW",
+    "property": "__create__fleet"
+  }],
   "methods": {}
 }
