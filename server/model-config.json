@@ -14,12 +14,12 @@
     ]
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "oclose-mongo",
     "public": false,
     "strict": true
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "oclose-mongo",
     "public": false,
     "strict": true
   },
