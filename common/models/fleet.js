@@ -1,5 +1,7 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
+
 const uuid = require('node-uuid');
+const crypto = require('crypto');
 
 module.exports = (Fleet) => {
   Fleet.disableRemoteMethod('create', true);
@@ -24,13 +26,74 @@ module.exports = (Fleet) => {
 
   Fleet.disableRemoteMethod('__get__user', false);
 
-  Fleet.observe('before save', (ctx, next) => {
-    if (ctx.instance && ctx.isNewInstance) {
-      const id = uuid.v4();
+  Fleet.disableRemoteMethod('__create__mote', false);
+  Fleet.disableRemoteMethod('__updateById__mote', false);
 
-      ctx.instance.uuid = id;
+  Fleet.disableRemoteMethod('__get__mote', false);
+  Fleet.disableRemoteMethod('__findById__mote', false);
+
+  Fleet.disableRemoteMethod('__delete__mote', false);
+  Fleet.disableRemoteMethod('__destroyById__mote', false);
+
+  Fleet.disableRemoteMethod('__count__mote', false);
+
+  Fleet.observe('before save', (ctx, next) => {
+    if (ctx.isNewInstance) {
+      ctx.instance.uuid = uuid.v4();
     }
 
     next();
   });
+
+  Fleet.registerMote = function registerMote(cb) {
+    Fleet.findById(this.key, (findErr, fleet) => {
+      if (findErr) {
+        cb(findErr);
+        return;
+      }
+
+      if (fleet) {
+        const moteUuid = uuid.v4();
+        const moteSecret =
+          crypto
+          .createHash('sha256')
+          .update(uuid.v4())
+          .update('pepitogrillo')
+          .digest('hex');
+
+        fleet.mote.create({
+          uuid: moteUuid,
+          secret: moteSecret,
+        }, (createErr) => {
+          if (createErr) {
+            cb(createErr);
+            return;
+          }
+
+          cb(null, moteUuid, moteSecret);
+        });
+      }
+    });
+  };
+
+  Fleet.remoteMethod(
+    'registerMote', {
+      accepts: [{
+        arg: 'fleetKey',
+        type: 'string',
+        required: true,
+      }],
+      returns: [{
+        arg: 'uuid',
+        type: 'string',
+      }, {
+        arg: 'secret',
+        type: 'string',
+      }],
+      description: [
+        'Register a new mote.',
+      ],
+      isStatic: false,
+    }
+  );
 };
