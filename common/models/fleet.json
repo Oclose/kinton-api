@@ -1,15 +1,16 @@
 {
-  "name": "fleetKey",
-  "plural": "fleetKeys",
+  "name": "fleet",
+  "plural": "fleets",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "key": {
+    "uuid": {
       "type": "string",
       "id": true,
+      "generated": false,
       "required": true,
       "index": true
     }
@@ -20,6 +21,11 @@
       "type": "belongsTo",
       "model": "user",
       "foreignKey": "ownerId"
+    },
+    "mote": {
+      "type": "hasMany",
+      "model": "mote",
+      "foreignKey": "fleetId"
     }
   },
   "acls": [],
