@@ -26,7 +26,7 @@ module.exports = (Mote) => {
 
   Mote.disableRemoteMethod('createChangeStream', true);
 
-  Mote.disableRemoteMethod('__get__user', false);
+  Mote.disableRemoteMethod('__get__fleet', false);
 
   Mote.observe('before save', (ctx, next) => {
     if (ctx.instance && ctx.isNewInstance) {
