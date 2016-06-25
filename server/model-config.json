@@ -27,7 +27,7 @@
     "dataSource": "oclose-mongo",
     "public": true
   },
-  "fleetKey": {
+  "fleet": {
     "dataSource": "oclose-mongo",
     "public": true
   },
