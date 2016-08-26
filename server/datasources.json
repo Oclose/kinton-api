@@ -3,11 +3,9 @@
     "name": "db",
     "connector": "memory"
   },
-  "oclose-mongo": {
-    "host": "localhost",
+  "mongodb": {
+    "host": "mongodb",
     "port": 27017,
-    "url": "",
-    "name": "oclose-mongo",
     "connector": "mongodb"
   }
 }
