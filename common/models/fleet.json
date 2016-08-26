@@ -6,6 +6,9 @@
   "options": {
     "validateUpsert": true
   },
+  "mongodb": {
+   "collection": "fleets"
+  },
   "properties": {
     "uuid": {
       "type": "string",

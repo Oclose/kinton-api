@@ -6,6 +6,9 @@
   "options": {
     "validateUpsert": true
   },
+  "mongodb": {
+   "collection": "devices"
+  },
   "properties": {
     "secret": {
       "type": "string",

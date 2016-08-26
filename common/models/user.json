@@ -6,6 +6,9 @@
   "options": {
     "validateUpsert": true
   },
+  "mongodb": {
+   "collection": "users"
+  },
   "properties": {},
   "validations": [],
   "relations": {
