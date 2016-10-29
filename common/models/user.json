@@ -6,9 +6,28 @@
   "options": {
     "validateUpsert": true
   },
+  "mongodb": {
+   "collection": "users"
+  },
   "properties": {},
   "validations": [],
-  "relations": {},
-  "acls": [],
+  "relations": {
+    "fleet": {
+      "type": "hasMany",
+      "model": "fleet",
+      "foreignKey": "ownerId"
+    }
+  },
+  "acls": [{
+    "principalType": "ROLE",
+    "principalId": "$owner",
+    "permission": "ALLOW",
+    "property": "__get__fleet"
+  }, {
+    "principalType": "ROLE",
+    "principalId": "$owner",
+    "permission": "ALLOW",
+    "property": "__create__fleet"
+  }],
   "methods": {}
 }

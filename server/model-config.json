@@ -14,17 +14,25 @@
     ]
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": false,
     "strict": true
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": false,
     "strict": true
   },
   "user": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "fleet": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "mote": {
+    "dataSource": "mongodb",
     "public": true
   }
 }

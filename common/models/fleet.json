@@ -1,0 +1,34 @@
+{
+  "name": "fleet",
+  "plural": "fleets",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mongodb": {
+   "collection": "fleets"
+  },
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "id": true,
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "ownerId"
+    },
+    "mote": {
+      "type": "hasMany",
+      "model": "mote",
+      "foreignKey": "fleetId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

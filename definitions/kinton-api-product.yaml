@@ -3,7 +3,7 @@ product: '1.0.0'
 info:
   name: kinton-api
   title: kinton-api
-  version: 1.0.0
+  version: 0.0.0
 
 apis:
   'kinton-api':

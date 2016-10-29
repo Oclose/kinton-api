@@ -1,3 +1,3 @@
-module.exports = function(User) {
+/* eslint no-param-reassign: ["error", { "props": false }] */
 
-};
+module.exports = () => {};

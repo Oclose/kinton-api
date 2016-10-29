@@ -75,6 +75,82 @@ paths:
           schema:
             $ref: '#/definitions/AccessToken'
       deprecated: false
+  '/users/{id}/fleet/{fk}':
+    get:
+      tags:
+        - user
+      summary: Find a related item by id for fleet.
+      operationId: user.prototype.__findById__fleet
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for fleet
+          required: true
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/fleet'
+      deprecated: false
+    delete:
+      tags:
+        - user
+      summary: Delete a related item by id for fleet.
+      operationId: user.prototype.__destroyById__fleet
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for fleet
+          required: true
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+    put:
+      tags:
+        - user
+      summary: Update a related item by id for fleet.
+      operationId: user.prototype.__updateById__fleet
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for fleet
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/fleet'
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/fleet'
+      deprecated: false
   '/users/{id}/accessTokens':
     get:
       tags:
@@ -146,6 +222,100 @@ paths:
         - user
       summary: Counts accessTokens of user.
       operationId: user.prototype.__count__accessTokens
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/users/{id}/fleet':
+    get:
+      tags:
+        - user
+      summary: Queries fleet of user.
+      operationId: user.prototype.__get__fleet
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/fleet'
+      deprecated: false
+    post:
+      tags:
+        - user
+      summary: Creates a new instance in fleet of this model.
+      operationId: user.prototype.__create__fleet
+      parameters:
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/fleet'
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/fleet'
+      deprecated: false
+    delete:
+      tags:
+        - user
+      summary: Deletes all fleet of this model.
+      operationId: user.prototype.__delete__fleet
+      parameters:
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/users/{id}/fleet/count':
+    get:
+      tags:
+        - user
+      summary: Counts fleet of user.
+      operationId: user.prototype.__count__fleet
       parameters:
         - name: where
           in: query
@@ -526,6 +696,34 @@ paths:
         '204':
           description: Request was successful
       deprecated: false
+  '/fleets/{id}/registerMote':
+    post:
+      tags:
+        - fleet
+      summary: Register a new mote.
+      operationId: fleet.prototype.registerMote
+      parameters:
+        - name: fleetKey
+          in: formData
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: PersistedModel id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              uuid:
+                type: string
+              secret:
+                type: string
+      deprecated: false
 definitions:
   x-any:
     properties: {}
@@ -542,10 +740,18 @@ definitions:
         type: string
         format: date
       userId:
-        type: number
-        format: double
+        $ref: '#/definitions/ObjectID'
     required:
       - id
+    additionalProperties: false
+  fleet:
+    properties:
+      uuid:
+        type: string
+      ownerId:
+        $ref: '#/definitions/ObjectID'
+    required:
+      - uuid
     additionalProperties: false
   user:
     properties:
@@ -570,11 +776,13 @@ definitions:
         type: string
         format: date
       id:
-        type: number
-        format: double
+        $ref: '#/definitions/ObjectID'
     required:
       - email
     additionalProperties: false
+  ObjectID:
+    type: string
+    pattern: "^[a-fA-F\\d]{24}$"
 swagger: '2.0'
 info:
   x-ibm-name: kinton-api
@@ -588,21 +796,10 @@ consumes:
   - application/json
 produces:
   - application/json
-securityDefinitions:
-  clientIdHeader:
-    type: apiKey
-    in: header
-    name: X-IBM-Client-Id
-  clientSecretHeader:
-    in: header
-    name: X-IBM-Client-Secret
-    type: apiKey
-security:
-  - clientIdHeader: []
-    clientSecretHeader: []
+securityDefinitions: {}
 x-ibm-configuration:
   testable: true
-  enforced: true
+  enforced: false
   cors:
     enabled: true
   catalogs:
@@ -616,3 +813,9 @@ x-ibm-configuration:
     execute:
       - invoke:
           target-url: $(runtime-url)$(request.path)$(request.search)
+parameters:
+  Authorization:
+    name: Authorization
+    type: string
+    required: false
+    in: header
